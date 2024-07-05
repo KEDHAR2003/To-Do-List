@@ -1,51 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>
-        tasks
-    </title>
+    <head>
+        <title>to-do-list</title>
+    </head>
     <style>
-        li{
-            list-style: none;
+        body{
+            font-family: sans-serif;
+        }
+        .tasks {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        form{
+            display: felx;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 25px;
+            font-size: 20px;
 
         }
+
+        input{
+            border: none;
+            outline: none;
+
+        }
+        button{
+            border: none;
+            outline: none;
+            background-color: rgb(104, 40, 40);
+            color: whitesmoke;
+            border-radius: 20px;
+            margin-left: 5px;
+        }
+        #submit{
+            background-color: rgb(104, 40, 40);
+            color: whitesmoke;
+            border-radius: 20px;
+            margin-left:15px ;
+        }
+        .show{
+            background-color: lime;
+            margin-left: 20px;
+            height: 25px;
+            font-size: 20px;
+            color: whitesmoke;
+        }
     </style>
+
     <script>
-       
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector("#submit").disabled = true;
-            document.querySelector("#task").onkeyup = () =>{
-                if (document.querySelector("#task").value.length > 0) {
-                    document.querySelector("#submit").disabled = false;
-                }else {
-                    document.querySelector("#submit").disabled = true;
-    
+        document.addEventListener("DOMContentLoaded", ()=> {
+            document.querySelector('form').onsubmit = () => {
+                const form = document.querySelector('form');
+                const tasks = document.querySelector(".tasks")
+                const new_task = document.querySelector("#new_task").value
+                if(!new_task){
+                    alert(`write some thing to add`)
                 }
-            }
-            
-            document.querySelector('form').onsubmit = () =>{
-                const task = document.querySelector('#task').value;
-                const li = document.createElement('li');
-                li.innerHTML = task;
-                document.querySelector("#tasks").append(li);
-                document.querySelector("#task").value = "";
-                document.querySelector("#submit").disabled = true;
+                const task_content = document.createElement('div');
+                task_content.classList.add("task_content");
+                
+
+                const content = document.createElement('div');
+                content.classList.add("content");
+                task_content.appendChild(content);
+
+                const show = document.createElement('input');
+                show.classList.add("add")
+                show.type = 'text';
+                show.setAttribute('readonly','readonly');
+                show.value = new_task;
+                task_content.appendChild(show);
+
+                const actions = document.createElement('div');
+                actions.classList.add('actions');
+
+                const edit = document.createElement('button');
+                edit.classList.add('edit');
+                edit.innerHTML = "edit";
+                
+                
+                const remove = document.createElement('button');
+                remove.classList.add('delete');
+                remove.innerHTML = "delete";
+
+                actions.appendChild(edit);
+                actions.appendChild(remove);
+                
+                tasks.appendChild(task_content);
+                tasks.appendChild(actions);
+
+                document.querySelector("#new_task").value = ""
+
+
                 return false;
-             
-            }
+
+            };
         });
-       
-            
     </script>
     <body>
-        <div>
-            <ul id="tasks">
-            </ul>
-        </div>
-        
         <form>
-            <input type="text" placeholder="enter the task" id="task">
+            <input type="text" placeholder="Enter task" id="new_task">
             <input type="submit" id="submit">
         </form>
-        
+        <div class="tasks">
+           <!-- <div id="task-content">
+                <div id="content">
+                    <input type="text" readonly id="show">
+                </div>
+            </div>
+            <div id="actions">
+                <button id ="edit">edit</button>
+                <button id="delete">delete</button>
+            </div> -->
+        </div>
     </body>
 </html>
